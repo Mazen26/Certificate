@@ -6,4 +6,6 @@
 <% else %>
   <h1>You have not created any courses</h1>
 <% end %>
-<%= link_to 'Create course', '/courses/create' %>
+<% if current_user %>
+  <%= link_to 'Create course', '/courses/create' %>
+<% end %>
