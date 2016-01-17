@@ -5,6 +5,7 @@ require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 require 'dm-rspec'
+require 'bcrypt'
 
 RSpec.configure do |config|
   config.include Capybara::DSL

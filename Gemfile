@@ -6,6 +6,7 @@ source 'http://rubygems.org'
   gem 'data_mapper'
   gem 'dm-postgres-adapter'
   gem 'pg'
+  gem 'bcrypt'
 
 group :developmnet, :test do
    gem 'cucumber'
@@ -14,4 +15,5 @@ group :developmnet, :test do
    gem 'rspec'
    gem 'dm-rspec'
    gem 'database_cleaner'
+   gem 'pry'
 end
