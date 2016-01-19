@@ -1,10 +1,14 @@
 require 'sinatra/base'
 require 'padrino-helpers'
 require 'data_mapper'
-require "pry"
+#require "pry"
 require './lib/course'
 require './lib/user'
 require './lib/delivery'
+
+if ENV['RACK_ENV'] != 'production'
+  require 'pry'
+end
 
 class WorkshopApp < Sinatra::Base
   register Padrino::Helpers
