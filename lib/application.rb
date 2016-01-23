@@ -2,15 +2,19 @@ require 'sinatra/base'
 require 'padrino-helpers'
 require 'data_mapper'
 #require "pry"
-require './lib/course'
-require './lib/user'
-require './lib/delivery'
-
 if ENV['RACK_ENV'] != 'production'
   require 'pry'
 end
+require './lib/csv_parse'
+require './lib/course'
+require './lib/user'
+require './lib/delivery'
+require './lib/student'
+
+
 
 class WorkshopApp < Sinatra::Base
+  include CSVParse
   register Padrino::Helpers
   set :protect_from_csrf, true
   enable :sessions
@@ -111,6 +115,17 @@ class WorkshopApp < Sinatra::Base
      session[:user_id] = @user.id
      session[:flash] = "Successfully logged in  #{@user.name}"
      redirect '/'
+   end
+
+    get '/courses/deliveries/show/:id', auth: :user do
+     @delivery = Delivery.get(params[:id].to_i)
+     erb :'courses/deliveries/show'
+   end
+
+   post '/courses/deliveries/file_upload' do
+     delivery = Delivery.get(params[:id].to_i)
+     CSVParse.import(params[:file][:tempfile], Student, delivery)
+     redirect "/courses/deliveries/show/#{delivery.id}"
    end
 
 

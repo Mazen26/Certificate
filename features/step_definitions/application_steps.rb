@@ -48,3 +48,21 @@ And(/^I click on "([^"]*)" for the "([^"]*)" ([^"]*)$/) do |element, name, model
   object = Object.const_get(model).find(name: name).first
   find("#course-#{object.id}").click_link(element)
 end
+
+Given(/^the delivery for the course "([^"]*)" is set to "([^"]*)"$/) do |name, date|
+  steps %(
+    Given the course "#{name}" is created
+    And I am on the Course index page
+    And I click on "Add Delivery date" for the "#{name}" Course
+    And I fill in "Start" with "#{date}"
+    And I click "Submit" link
+  )
+end
+
+When(/^I select the "([^"]*)" file$/) do |file_name|
+  attach_file('file', File.absolute_path("./features/fixtures/#{file_name}"))
+end
+
+Then(/^([^"]*) instances of "([^"]*)" should be created$/) do |count, model|
+  expect(Object.const_get(model).count).to eq count.to_i
+end
