@@ -5,3 +5,15 @@
   <%= file_field_tag :file %>
   <%= submit_tag 'Submit' %>
 <% end %>
+
+<div>
+  <% if @delivery.students.any? %>
+    Students:
+    <% @delivery.students.each do |student| %>
+      <%= [student.full_name, ''].join(' ') %>
+    <% end %>
+    <div>
+      <%= link_to 'Generate certificates', "/courses/generate/#{@delivery.id}" %>
+    </div>
+  <% end %>
+</div>

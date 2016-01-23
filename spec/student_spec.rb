@@ -5,4 +5,5 @@ describe Student do
   it { is_expected.to have_property :email }
 
   it { is_expected.to have_many_and_belong_to :deliveries }
+  it { is_expected.to have_many :certificates }
 end

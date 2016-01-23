@@ -7,6 +7,8 @@ source 'http://rubygems.org'
   gem 'dm-postgres-adapter'
   gem 'pg'
   gem 'bcrypt'
+  gem 'prawn'
+  gem 'rmagick'
 
 group :developmnet, :test do
    gem 'cucumber'

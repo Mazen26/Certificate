@@ -10,6 +10,7 @@ require './lib/course'
 require './lib/user'
 require './lib/delivery'
 require './lib/student'
+require './lib/certificate'
 
 
 
@@ -26,7 +27,7 @@ class WorkshopApp < Sinatra::Base
     DataMapper.finalize
     DataMapper.auto_upgrade!
 
-    before do
+  before do
     @user = User.get(session[:user_id]) unless is_user?
   end
 
@@ -79,14 +80,14 @@ class WorkshopApp < Sinatra::Base
     course = Course.get(params[:course_id])
     course.deliveries.create(start_date: params[:start_date])
     redirect 'courses/index'
- end
+  end
 
    get '/users/register' do
     erb :'users/register'
 
    end
 
-   post '/users/create' do
+  post '/users/create' do
     begin
       User.create(name: params[:user][:name],
                   email: params[:user][:email],
@@ -102,13 +103,13 @@ class WorkshopApp < Sinatra::Base
 
   get '/users/login' do
    erb :'users/login'
-   end
+  end
 
- get '/users/logout' do
+   get '/users/logout' do
        session[:user_id] = nil
        session[:flash] = 'Successfully logged out'
        redirect '/'
-     end
+   end
 
    post '/users/session' do
      @user = User.authenticate(params[:email], params[:password])
@@ -117,7 +118,7 @@ class WorkshopApp < Sinatra::Base
      redirect '/'
    end
 
-    get '/courses/deliveries/show/:id', auth: :user do
+  get '/courses/deliveries/show/:id', auth: :user do
      @delivery = Delivery.get(params[:id].to_i)
      erb :'courses/deliveries/show'
    end
@@ -128,6 +129,14 @@ class WorkshopApp < Sinatra::Base
      redirect "/courses/deliveries/show/#{delivery.id}"
    end
 
+   get '/courses/generate/:id' do
+     delivery = Delivery.get(params[:id].to_i)
+     delivery.students.each do |student|
+       c = student.certificates.new(created_at: DateTime.now, delivery: delivery)
+       c.save
+     end
+     redirect "/courses/deliveries/show/#{delivery.id}"
+   end
 
   # start the server if ruby file executed directly
   run! if app_file == $0

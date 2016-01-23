@@ -6,4 +6,5 @@ class Student
   property :email, String
 
   has n, :deliveries, through: Resource
+  has n, :certificates
 end
