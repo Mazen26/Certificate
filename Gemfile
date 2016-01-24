@@ -9,6 +9,8 @@ source 'http://rubygems.org'
   gem 'bcrypt'
   gem 'prawn'
   gem 'rmagick', '~> 2.15', '>= 2.15.4'
+  gem 'aws-sdk'
+  gem 'dotenv'
 
 group :developmnet, :test do
    gem 'cucumber'
