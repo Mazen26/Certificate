@@ -211,7 +211,7 @@ DEPENDENCIES
   pg
   prawn
   pry
-  rmagick
+  rmagick (~> 2.15, >= 2.15.4)
   rspec
   sinatra
   tilt (~> 1.4, >= 1.4.1)

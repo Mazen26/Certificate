@@ -8,7 +8,7 @@ source 'http://rubygems.org'
   gem 'pg'
   gem 'bcrypt'
   gem 'prawn'
-  gem 'rmagick'
+  gem 'rmagick', '~> 2.15', '>= 2.15.4'
 
 group :developmnet, :test do
    gem 'cucumber'
