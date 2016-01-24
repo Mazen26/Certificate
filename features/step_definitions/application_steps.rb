@@ -99,3 +99,7 @@ And(/^I visit the url for a certificate$/) do
   cert = Certificate.last
   visit "/verify/#{cert.identifier}"
 end
+
+And(/^I should see ([^"]*) "([^"]*)" links$/) do |count, element|
+  expect(page).to have_link(element, count: count)
+end

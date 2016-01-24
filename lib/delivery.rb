@@ -6,4 +6,5 @@ class Delivery
 
   belongs_to :course
   has n, :students, through: Resource
+  has n, :certificates, through: :students
 end
